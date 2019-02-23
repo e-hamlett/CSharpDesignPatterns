@@ -10,7 +10,7 @@ namespace CSharpDesignPatterns
     {
         public WideWheel(int size) : base(size, true)
         {
-
+            Console.WriteLine("The size of the Wide Wheel is " + size + " inches.");
         }
     }
 }

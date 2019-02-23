@@ -13,16 +13,27 @@ namespace CSharpDesignPatterns
         static void Main(string[] args)
         {
             BuilderPatternDemo();
+            TouringBike();
             //AbstractFactoryDemo();
+        }
+
+        private static void TouringBike()
+        {
+            AbstractRoadBike roadBike = new Touring(BikeColor.Gold, new NarrowWheel(12));
+            BikeBuilder builder = new RoadBikeBuilder(roadBike);
+            BikeDirector director = new RoadBikeDirector();
+            IBicycle bicycle = director.Build(builder);
+            Console.WriteLine(bicycle);
         }
 
         private static void BuilderPatternDemo()
         {
-            AbstractMountainBike mountainBike = new Downhill(BikeColor.Gold, new WideWheel(24));
+            AbstractMountainBike mountainBike = new Downhill(BikeColor.Gold, new WideWheel(32));
             BikeBuilder builder = new MountainBikeBuilder(mountainBike);
             BikeDirector director = new MountainBikeDirector();
             IBicycle bicycle = director.Build(builder);
             Console.WriteLine(bicycle);
+
 
         }
         private static void AbstractFactoryDemo()
