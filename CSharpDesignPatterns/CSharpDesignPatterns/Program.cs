@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AbstractFactory;
 using Builder;
+using Singleton;
+using Adapter;
+using Decorator;
 
 namespace CSharpDesignPatterns
 {
@@ -12,9 +15,62 @@ namespace CSharpDesignPatterns
     {
         static void Main(string[] args)
         {
-            BuilderPatternDemo();
-            TouringBike();
+            DecoratorPatternDemo();
+            //AdapterPatternDemo();
+            //SingletonPatternDemo();
+            //BuilderPatternDemo();
+            //TouringBike();
+            // VintageBike();
             //AbstractFactoryDemo();
+        }
+
+        private static void DecoratorPatternDemo()
+        {
+            //Standard Touring Bike
+            IBicycle myTourBike = new Touring(BikeColor.Gold, new NarrowWheel(24));
+            Console.WriteLine(myTourBike);
+
+            myTourBike = new CustomGripOption(myTourBike);
+            Console.WriteLine(myTourBike);
+
+            myTourBike = new LeatherSeatOption(myTourBike);
+            Console.WriteLine(myTourBike);
+
+            myTourBike = new GoldFrameOption(myTourBike);
+            Console.WriteLine(myTourBike);
+
+        }
+
+        private static void AdapterPatternDemo()
+        {
+            IList<IWheel> wheels = new List<IWheel>();
+
+            wheels.Add(new NarrowWheel(24));
+            wheels.Add(new WideWheel(20));
+            wheels.Add(new NarrowWheel(26));
+            wheels.Add(new UltraWheelAdapter(new UltraWheel(28)));
+
+            foreach (IWheel wheel in wheels)
+            {
+                Console.WriteLine(wheel);
+            }
+        }
+        private static void SingletonPatternDemo()
+        {
+            SerialNumberGenerator generator = SerialNumberGenerator.Instance;
+
+            Console.WriteLine("Next serial " + generator.NextSerial);
+            Console.WriteLine("Next serial " + SerialNumberGenerator.Instance.NextSerial);
+            Console.WriteLine("Next serial " + generator.NextSerial);
+
+        }
+        private static void VintageBike()
+        {
+            AbstractRoadBike vintageRoadBike = new Vintage(BikeColor.Ocean, new NarrowWheel(10));
+            BikeBuilder builder = new RoadBikeBuilder(vintageRoadBike);
+            BikeDirector director = new RoadBikeDirector();
+            IBicycle bicycle = director.Build(builder);
+            Console.WriteLine(bicycle);
         }
 
         private static void TouringBike()

@@ -17,5 +17,6 @@ namespace CSharpDesignPatterns
 
         }
 
+        public override decimal Price { get; } = 740.00m;
     }
 }
