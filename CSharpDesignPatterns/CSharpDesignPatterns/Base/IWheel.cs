@@ -11,5 +11,6 @@ namespace CSharpDesignPatterns
         int Size { get; }
         bool IsWide { get; }
 
+
     }
 }
